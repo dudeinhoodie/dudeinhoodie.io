@@ -1,31 +1,20 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { useStaticQuery } from 'gatsby';
 
-import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import { SITE_TITLE_QUERY } from 'src/queries/metadata';
+import { Footer } from 'src/components/footer';
+import Header from './header';
 
-import Header from "./header"
-import "./layout.css"
+import './layout.css';
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const data = useStaticQuery(SITE_TITLE_QUERY);
+  const title = data?.site?.siteMetadata?.title ?? 'Title';
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+    <Fragment>
+      <Header siteTitle={title} />
       <div
         style={{
           margin: `0 auto`,
@@ -34,20 +23,14 @@ const Layout = ({ children }) => {
         }}
       >
         <main>{children}</main>
-        <footer style={{
-          marginTop: `2rem`
-        }}>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
+        <Footer />
       </div>
-    </>
-  )
-}
+    </Fragment>
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;
