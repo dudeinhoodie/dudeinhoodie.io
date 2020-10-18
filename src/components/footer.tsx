@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Footer(props) {
+export function Footer(props: any) {
   return (
     <footer
       style={{
