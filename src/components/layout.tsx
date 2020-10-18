@@ -1,15 +1,23 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 
-import { SITE_TITLE_QUERY } from 'src/queries/metadata';
-import { Footer } from 'src/components/footer';
+import { Footer } from './footer';
 import Header from './header';
 
 import './layout.css';
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(SITE_TITLE_QUERY);
+const Layout = (props: any) => {
+  const { children } = props;
+  const data = useStaticQuery(graphql`
+    query MyQuery {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
   const title = data?.site?.siteMetadata?.title ?? 'Title';
 
   return (
