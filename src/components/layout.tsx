@@ -7,29 +7,29 @@ import Header from './header';
 
 import './layout.css';
 
-const Layout = (props: any) => {
-  const { children } = props;
-  const data = useStaticQuery(graphql`
-    query MyQuery {
-      site {
-        siteMetadata {
-          title
-        }
+type Props = {
+  children: any;
+}
+
+const SITE_META_DATA = graphql`
+  query MyQuery {
+    site {
+      siteMetadata {
+        title
       }
     }
-  `);
+  }
+`;
+
+const Layout: React.FC<Props> = (props: Props): React.ReactElement => {
+  const { children } = props;
+  const data = useStaticQuery(SITE_META_DATA);
   const title = data?.site?.siteMetadata?.title ?? 'Title';
 
   return (
     <Fragment>
       <Header siteTitle={title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
+      <div>
         <main>{children}</main>
         <Footer />
       </div>
