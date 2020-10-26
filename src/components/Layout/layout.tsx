@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, useStaticQuery } from 'gatsby';
 
-import { Footer } from './footer';
-import Header from './header';
+import { Footer } from '../Footer/footer';
+import Header from '../Header/header';
 
 import './layout.css';
 
